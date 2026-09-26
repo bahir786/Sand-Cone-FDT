@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Field Density Test (Sand Cone, ASTM D1556) Calculator</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="manifest" href="data:application/manifest+json;charset=utf-8,%7B%22name%22%3A%20%22Field%20Density%20Test%20-%20Sand%20Cone%20Calculator%20%28ASTM%20D1556%29%22%2C%20%22short_name%22%3A%20%22Sand%20Cone%20FDT%22%2C%20%22description%22%3A%20%22ASTM%20D1556%20field%20density%20test%20%28sand%20cone%20method%29%20calculator%20for%20construction%20lab%20technicians.%20Developed%20by%20Abdul%20Basir%20Bahir.%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%23EDEAE2%22%2C%20%22theme_color%22%3A%20%22%23D98E1F%22%2C%20%22lang%22%3A%20%22ps%22%2C%20%22dir%22%3A%20%22rtl%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A//www.w3.org/2000/svg%2527%2520width%253D%2527512%2527%2520height%253D%2527512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%252790%2527%2520fill%253D%2527%252523D98E1F%2527/%253E%253Ctext%2520x%253D%252750%2525%2527%2520y%253D%252760%2525%2527%2520font-size%253D%2527190%2527%2520text-anchor%253D%2527middle%2527%2520fill%253D%2527%2525235A3C0A%2527%2520font-family%253D%2527Arial%252C%2520sans-serif%2527%2520font-weight%253D%2527bold%2527%253EFDT%253C/text%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22any%22%7D%2C%20%7B%22src%22%3A%20%22data%3Aimage/svg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A//www.w3.org/2000/svg%2527%2520width%253D%2527512%2527%2520height%253D%2527512%2527%253E%253Crect%2520width%253D%2527512%2527%2520height%253D%2527512%2527%2520rx%253D%252790%2527%2520fill%253D%2527%252523D98E1F%2527/%253E%253Ctext%2520x%253D%252750%2525%2527%2520y%253D%252760%2525%2527%2520font-size%253D%2527190%2527%2520text-anchor%253D%2527middle%2527%2520fill%253D%2527%2525235A3C0A%2527%2520font-family%253D%2527Arial%252C%2520sans-serif%2527%2520font-weight%253D%2527bold%2527%253EFDT%253C/text%253E%253C/svg%253E%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/svg%2Bxml%22%2C%20%22purpose%22%3A%20%22maskable%22%7D%5D%7D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27512%27%20height%3D%27512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%2790%27%20fill%3D%27%2523D98E1F%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2760%25%27%20font-size%3D%27190%27%20text-anchor%3D%27middle%27%20fill%3D%27%25235A3C0A%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-weight%3D%27bold%27%3EFDT%3C/text%3E%3C/svg%3E" type="image/svg+xml">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27512%27%20height%3D%27512%27%3E%3Crect%20width%3D%27512%27%20height%3D%27512%27%20rx%3D%2790%27%20fill%3D%27%2523D98E1F%27/%3E%3Ctext%20x%3D%2750%25%27%20y%3D%2760%25%27%20font-size%3D%27190%27%20text-anchor%3D%27middle%27%20fill%3D%27%25235A3C0A%27%20font-family%3D%27Arial%2C%20sans-serif%27%20font-weight%3D%27bold%27%3EFDT%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#D98E1F">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,61 +49,61 @@ html,body{margin:0;padding:0;background:var(--bg);}
 body{
   font-family:'Noto Sans Arabic','Noto Sans',system-ui,Tahoma,Arial,sans-serif;
   color:var(--ink);
-  font-size:16px;
-  line-height:1.6;
-  padding:18px 14px 40px;
+  font-size:13px;
+  line-height:1.35;
+  padding:10px 10px 20px;
   max-width:560px;
   margin:0 auto;
 }
-header{margin-bottom:18px;}
-.eyebrow{color:var(--soil); font-size:14px; font-weight:600; margin:0 0 2px;}
-h1{font-size:22px; font-weight:700; margin:0 0 6px;}
-.sub{color:var(--ink-soft); font-size:14px; margin:0; direction:ltr; text-align:right;}
+header{margin-bottom:8px;}
+.eyebrow{color:var(--soil); font-size:11px; font-weight:600; margin:0 0 1px;}
+h1{font-size:16px; font-weight:700; margin:0 0 3px;}
+.sub{color:var(--ink-soft); font-size:10.5px; margin:0; direction:ltr; text-align:right;}
 
 .card{
   background:var(--card);
   border:1px solid var(--line);
   border-radius:10px;
-  padding:16px;
-  margin-bottom:14px;
+  padding:8px 10px;
+  margin-bottom:6px;
 }
 .card h2{
-  font-size:15px; font-weight:700; margin:0 0 4px;
-  display:flex; align-items:center; gap:8px;
+  font-size:12.5px; font-weight:700; margin:0 0 2px;
+  display:flex; align-items:center; gap:6px;
 }
 .card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;}
-.card .cardnote{font-size:13px; color:var(--ink-soft); margin:0 0 12px;}
+.card .cardnote{font-size:10px; color:var(--ink-soft); margin:0 0 5px;}
 
-.row{display:flex; gap:10px; margin-bottom:10px;}
+.row{display:flex; gap:6px; margin-bottom:5px;}
 .field{flex:1; min-width:0;}
-.field.lab{background:var(--lab); border-radius:8px; padding:8px 8px 6px;}
-.field label{display:block; font-size:13px; color:var(--ink-soft); margin-bottom:5px; direction:ltr; text-align:right;}
+.field.lab{background:var(--lab); border-radius:6px; padding:4px 5px 3px;}
+.field label{display:block; font-size:10px; color:var(--ink-soft); margin-bottom:2px; direction:ltr; text-align:right;}
 .field.lab label{color:var(--lab-ink);}
 .field input{
   width:100%;
-  padding:11px 12px;
+  padding:6px 8px;
   border:1px solid var(--line);
-  border-radius:8px;
+  border-radius:6px;
   background:var(--bg2);
   color:var(--ink);
-  font-size:16.5px;
+  font-size:13px;
   font-family:inherit;
   direction:ltr;
   text-align:right;
 }
 .field input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent);}
-.field .unit{font-size:12px; color:var(--ink-soft); margin-top:3px; direction:ltr; text-align:right;}
+.field .unit{font-size:9px; color:var(--ink-soft); margin-top:1px; direction:ltr; text-align:right;}
 
 details.card{padding:0;}
 details.card summary{
   list-style:none; cursor:pointer;
-  padding:16px; font-weight:700; font-size:15px;
+  padding:8px 10px; font-weight:700; font-size:12.5px;
   display:flex; align-items:center; justify-content:space-between;
 }
 details.card summary::-webkit-details-marker{display:none;}
 details.card summary::after{content:'⌄'; color:var(--ink-soft); font-size:18px; transition:transform .15s;}
 details.card[open] summary::after{transform:rotate(180deg);}
-details.card .inner{padding:0 16px 16px;}
+details.card .inner{padding:0 10px 8px;}
 details.nested{border:1px solid var(--line); border-radius:8px; margin-top:4px;}
 details.nested summary{padding:10px 12px; font-weight:600; font-size:13.5px; color:var(--ink-soft);}
 details.nested .inner{padding:0 12px 12px;}
@@ -111,15 +111,15 @@ details.nested .inner{padding:0 12px 12px;}
 .result-card{background:var(--accent); color:var(--accent-ink); border:none;}
 .result-card h2{color:var(--accent-ink);}
 .result-card .cardnote{color:var(--accent-ink); opacity:.75;}
-.result-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-.result-item{background:rgba(255,255,255,.35); border-radius:8px; padding:10px 12px;}
+.result-grid{display:grid; grid-template-columns:1fr 1fr; gap:5px;}
+.result-item{background:rgba(255,255,255,.35); border-radius:6px; padding:5px 7px;}
 :root[data-theme="dark"] .result-item{background:rgba(0,0,0,.18);}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .result-item{background:rgba(0,0,0,.18);}}
-.result-item .label{font-size:12px; opacity:.85; margin-bottom:3px; direction:ltr; text-align:right;}
-.result-item .value{font-size:19px; font-weight:700; direction:ltr; text-align:right;}
-.result-item .value small{font-size:12.5px; font-weight:500;}
+.result-item .label{font-size:9px; opacity:.85; margin-bottom:1px; direction:ltr; text-align:right;}
+.result-item .value{font-size:14px; font-weight:700; direction:ltr; text-align:right;}
+.result-item .value small{font-size:9.5px; font-weight:500;}
 
-.status{margin-top:12px; padding:10px 12px; border-radius:8px; font-size:15px; font-weight:700; text-align:center;}
+.status{margin-top:6px; padding:6px 8px; border-radius:6px; font-size:12px; font-weight:700; text-align:center;}
 .status.good{background:var(--good-bg); color:var(--good);}
 .status.warn{background:var(--warn-bg); color:var(--warn);}
 .status.neutral{background:rgba(255,255,255,.35); color:var(--accent-ink);}
@@ -136,9 +136,9 @@ details.nested .inner{padding:0 12px 12px;}
 .usebtn:active{opacity:.7;}
 
 button.reset{
-  width:100%; margin-top:4px; padding:12px; border:1px solid var(--line);
-  background:var(--bg2); color:var(--ink-soft); border-radius:8px;
-  font-size:14px; font-family:inherit; cursor:pointer;
+  width:100%; margin-top:2px; padding:7px; border:1px solid var(--line);
+  background:var(--bg2); color:var(--ink-soft); border-radius:6px;
+  font-size:11px; font-family:inherit; cursor:pointer;
 }
 button.reset:active{opacity:.7;}
 .placeholder-value{color:var(--ink-soft); opacity:.5;}
@@ -199,26 +199,11 @@ button.reset:active{opacity:.7;}
 <details class="card" id="idCard">
   <summary><span>Test Identification</span></summary>
   <div class="inner">
+    <p class="cardnote">Chainage, depth, layer, offset — write together (e.g. "0+175, 15.5cm, Top, CL")</p>
     <div class="row">
       <div class="field">
-        <label>Chainage of hole</label>
-        <input type="text" id="chainage">
-      </div>
-      <div class="field">
-        <label>Layer No.</label>
-        <input type="text" id="layer">
-      </div>
-    </div>
-    <div class="row">
-      <div class="field">
-        <label>Depth of hole</label>
-        <input type="text" inputmode="decimal" id="depth">
-        <div class="unit">cm</div>
-      </div>
-      <div class="field">
-        <label>Distance from Centerline (left/right)</label>
-        <input type="text" id="offset">
-        <div class="unit">m</div>
+        <label>Test Identification</label>
+        <input type="text" id="testId">
       </div>
     </div>
   </div>
@@ -261,33 +246,6 @@ button.reset:active{opacity:.7;}
       <div class="unit">%</div>
     </div>
   </div>
-
-  <details class="nested">
-    <summary>Calculate from can weights instead</summary>
-    <div class="inner">
-      <div class="row">
-        <div class="field">
-          <label>Wt. of wet sample + can</label>
-          <input type="text" inputmode="decimal" id="wetCan">
-          <div class="unit">g</div>
-        </div>
-        <div class="field">
-          <label>Wt. of dry sample + can</label>
-          <input type="text" inputmode="decimal" id="dryCan">
-          <div class="unit">g</div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="field">
-          <label>Wt. of can</label>
-          <input type="text" inputmode="decimal" id="canWt">
-          <div class="unit">g</div>
-        </div>
-      </div>
-      <div class="miniresult" id="miniMoist">Moisture content: —</div>
-      <button class="usebtn" id="useMoistBtn">Use this value ↑</button>
-    </div>
-  </details>
 </div>
 
 <div class="card result-card">
@@ -328,8 +286,7 @@ button.reset:active{opacity:.7;}
 (function(){
   const $ = id => document.getElementById(id);
   const labIds = ['wc','gs','mddFine','gc','omc','specReq'];
-  const fieldIds = ['chainage','layer','depth','offset','wetHole','retained','w1','w2','moist'];
-  const canIds = ['wetCan','dryCan','canWt'];
+  const fieldIds = ['testId','wetHole','retained','w1','w2','moist'];
 
   try{
     labIds.forEach(id=>{
@@ -346,17 +303,10 @@ button.reset:active{opacity:.7;}
     });
   });
   fieldIds.forEach(id=> $(id).addEventListener('input', compute));
-  canIds.forEach(id=> $(id).addEventListener('input', computeMini));
 
   $('resetBtn').addEventListener('click', ()=>{
     fieldIds.forEach(id=> $(id).value='');
-    canIds.forEach(id=> $(id).value='');
-    compute(); computeMini();
-  });
-
-  $('useMoistBtn').addEventListener('click', ()=>{
-    const m = miniMoistValue();
-    if(m!==null){ $('moist').value = m.toFixed(2); compute(); }
+    compute();
   });
 
   function normalizeDigits(str){
@@ -374,20 +324,6 @@ button.reset:active{opacity:.7;}
     if(raw==='') return null;
     const v = parseFloat(raw);
     return isNaN(v) ? null : v;
-  }
-
-  function miniMoistValue(){
-    const wetCan = num('wetCan'), dryCan = num('dryCan'), can = num('canWt');
-    if(wetCan===null || dryCan===null || can===null) return null;
-    const dryWt = dryCan - can;
-    const waterWt = wetCan - dryCan;
-    if(dryWt<=0) return null;
-    return (waterWt/dryWt)*100;
-  }
-
-  function computeMini(){
-    const m = miniMoistValue();
-    $('miniMoist').textContent = 'Moisture content: ' + (m===null ? '—' : m.toFixed(2)+'%');
   }
 
   function setVal(id, v, unit, dec){
@@ -456,18 +392,8 @@ button.reset:active{opacity:.7;}
   }
 
   compute();
-  computeMini();
 })();
 </script>
 
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('sw.js').catch(function(err){
-      console.log('Service worker registration failed:', err);
-    });
-  });
-}
-</script>
 </body>
 </html>
