@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ps" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Field Density Test (Sand Cone, ASTM D1556) Calculator</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#D98E1F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EDEAE2; --bg2:#F6F4EF; --ink:#2B2A26; --ink-soft:#6B6558;
+  --line:#D8D2C4; --card:#FFFFFF;
+  --accent:#D98E1F; --accent-ink:#5A3C0A;
+  --soil:#7C5B3E;
+  --good:#3F7A50; --good-bg:#E7F1E6;
+  --warn:#B4472B; --warn-bg:#F7E7E1;
+  --lab:#FFF4C2; --lab-ink:#5A4A00;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-sizing: border-box;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1C18; --bg2:#26231D; --ink:#EDE8DD; --ink-soft:#B3AB99;
+    --line:#3A362C; --card:#26231D;
+    --accent:#E8A93C; --accent-ink:#2A1C05;
+    --soil:#C79A6E;
+    --good:#7FBF8E; --good-bg:#1F2E22;
+    --warn:#E39481; --warn-bg:#3A211B;
+    --lab:#3A3210; --lab-ink:#E8CF6B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1C18; --bg2:#26231D; --ink:#EDE8DD; --ink-soft:#B3AB99;
+  --line:#3A362C; --card:#26231D;
+  --accent:#E8A93C; --accent-ink:#2A1C05;
+  --soil:#C79A6E;
+  --good:#7FBF8E; --good-bg:#1F2E22;
+  --warn:#E39481; --warn-bg:#3A211B;
+  --lab:#3A3210; --lab-ink:#E8CF6B;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);}
+body{
+  font-family:'Noto Sans Arabic','Noto Sans',system-ui,Tahoma,Arial,sans-serif;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.6;
+  padding:18px 14px 40px;
+  max-width:560px;
+  margin:0 auto;
+}
+header{margin-bottom:18px;}
+.eyebrow{color:var(--soil); font-size:14px; font-weight:600; margin:0 0 2px;}
+h1{font-size:22px; font-weight:700; margin:0 0 6px;}
+.sub{color:var(--ink-soft); font-size:14px; margin:0; direction:ltr; text-align:right;}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:16px;
+  margin-bottom:14px;
+}
+.card h2{
+  font-size:15px; font-weight:700; margin:0 0 4px;
+  display:flex; align-items:center; gap:8px;
+}
+.card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;}
+.card .cardnote{font-size:13px; color:var(--ink-soft); margin:0 0 12px;}
+
+.row{display:flex; gap:10px; margin-bottom:10px;}
+.field{flex:1; min-width:0;}
+.field.lab{background:var(--lab); border-radius:8px; padding:8px 8px 6px;}
+.field label{display:block; font-size:13px; color:var(--ink-soft); margin-bottom:5px; direction:ltr; text-align:right;}
+.field.lab label{color:var(--lab-ink);}
+.field input{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:8px;
+  background:var(--bg2);
+  color:var(--ink);
+  font-size:16.5px;
+  font-family:inherit;
+  direction:ltr;
+  text-align:right;
+}
+.field input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent);}
+.field .unit{font-size:12px; color:var(--ink-soft); margin-top:3px; direction:ltr; text-align:right;}
+
+details.card{padding:0;}
+details.card summary{
+  list-style:none; cursor:pointer;
+  padding:16px; font-weight:700; font-size:15px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+details.card summary::-webkit-details-marker{display:none;}
+details.card summary::after{content:'⌄'; color:var(--ink-soft); font-size:18px; transition:transform .15s;}
+details.card[open] summary::after{transform:rotate(180deg);}
+details.card .inner{padding:0 16px 16px;}
+details.nested{border:1px solid var(--line); border-radius:8px; margin-top:4px;}
+details.nested summary{padding:10px 12px; font-weight:600; font-size:13.5px; color:var(--ink-soft);}
+details.nested .inner{padding:0 12px 12px;}
+
+.result-card{background:var(--accent); color:var(--accent-ink); border:none;}
+.result-card h2{color:var(--accent-ink);}
+.result-card .cardnote{color:var(--accent-ink); opacity:.75;}
+.result-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+.result-item{background:rgba(255,255,255,.35); border-radius:8px; padding:10px 12px;}
+:root[data-theme="dark"] .result-item{background:rgba(0,0,0,.18);}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .result-item{background:rgba(0,0,0,.18);}}
+.result-item .label{font-size:12px; opacity:.85; margin-bottom:3px; direction:ltr; text-align:right;}
+.result-item .value{font-size:19px; font-weight:700; direction:ltr; text-align:right;}
+.result-item .value small{font-size:12.5px; font-weight:500;}
+
+.status{margin-top:12px; padding:10px 12px; border-radius:8px; font-size:15px; font-weight:700; text-align:center;}
+.status.good{background:var(--good-bg); color:var(--good);}
+.status.warn{background:var(--warn-bg); color:var(--warn);}
+.status.neutral{background:rgba(255,255,255,.35); color:var(--accent-ink);}
+
+.hint{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+.miniresult{font-size:14px; font-weight:700; margin-top:8px; direction:ltr; text-align:right;}
+.usebtn{
+  margin-top:8px; padding:9px 14px; border:1px solid var(--accent);
+  background:transparent; color:var(--accent-ink); border-radius:7px;
+  font-size:13.5px; font-family:inherit; cursor:pointer; width:100%;
+}
+:root[data-theme="dark"] .usebtn{color:var(--accent);}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .usebtn{color:var(--accent);}}
+.usebtn:active{opacity:.7;}
+
+button.reset{
+  width:100%; margin-top:4px; padding:12px; border:1px solid var(--line);
+  background:var(--bg2); color:var(--ink-soft); border-radius:8px;
+  font-size:14px; font-family:inherit; cursor:pointer;
+}
+button.reset:active{opacity:.7;}
+.placeholder-value{color:var(--ink-soft); opacity:.5;}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">ساحوي تجربه · ASTM D1556</p>
+  <h1>Field Density Test — Sand Cone Method</h1>
+  <p class="sub">Calculator matches the lab worksheet — enter field weights, get results instantly.</p>
+  <p class="sub" style="margin-top:4px; opacity:.8;">Developed by: Abdul Basir Bahir</p>
+</header>
+
+<details class="card" id="labCard">
+  <summary><span>Laboratory Reference Values</span></summary>
+  <div class="inner">
+    <p class="cardnote">دا ارقام یوځل له لابراتوار نه اخلئ، دلته یې وساتئ — بیا بیا یې لیکل نه غواړي.</p>
+    <div class="row">
+      <div class="field lab">
+        <label>Wt. of sand in cone and base plate</label>
+        <input type="text" inputmode="decimal" id="wc">
+        <div class="unit">g</div>
+      </div>
+      <div class="field lab">
+        <label>Unit wt. of sand</label>
+        <input type="text" inputmode="decimal" id="gs">
+        <div class="unit">g/cc</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field lab">
+        <label>Maximum dry density (pass 19mm)</label>
+        <input type="text" inputmode="decimal" id="mddFine">
+        <div class="unit">g/cc</div>
+      </div>
+      <div class="field lab">
+        <label>Specific gravity of coarse agg (ret. 19mm)</label>
+        <input type="text" inputmode="decimal" id="gc">
+        <div class="unit">—</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field lab">
+        <label>Optimum moisture content</label>
+        <input type="text" inputmode="decimal" id="omc">
+        <div class="unit">%</div>
+      </div>
+      <div class="field">
+        <label>Specification requirement</label>
+        <input type="text" inputmode="decimal" id="specReq" value="98">
+        <div class="unit">%</div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<details class="card" id="idCard">
+  <summary><span>Test Identification</span></summary>
+  <div class="inner">
+    <div class="row">
+      <div class="field">
+        <label>Chainage of hole</label>
+        <input type="text" id="chainage">
+      </div>
+      <div class="field">
+        <label>Layer No.</label>
+        <input type="text" id="layer">
+      </div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Depth of hole</label>
+        <input type="text" inputmode="decimal" id="depth">
+        <div class="unit">cm</div>
+      </div>
+      <div class="field">
+        <label>Distance from Centerline (left/right)</label>
+        <input type="text" id="offset">
+        <div class="unit">m</div>
+      </div>
+    </div>
+  </div>
+</details>
+
+<div class="card">
+  <h2><span class="dot"></span>Field Measurements</h2>
+  <div class="row">
+    <div class="field">
+      <label>Wt. of wet sample from hole</label>
+      <input type="text" inputmode="decimal" id="wetHole">
+      <div class="unit">g</div>
+    </div>
+    <div class="field">
+      <label>Wt. retained on 19mm sieve</label>
+      <input type="text" inputmode="decimal" id="retained">
+      <div class="unit">g</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="field">
+      <label>Wt. of sand + jar before pouring</label>
+      <input type="text" inputmode="decimal" id="w1">
+      <div class="unit">g</div>
+    </div>
+    <div class="field">
+      <label>Wt. of sand + jar after pouring</label>
+      <input type="text" inputmode="decimal" id="w2">
+      <div class="unit">g</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="dot"></span>Moisture Content</h2>
+  <div class="row">
+    <div class="field">
+      <label>Average moisture content</label>
+      <input type="text" inputmode="decimal" id="moist">
+      <div class="unit">%</div>
+    </div>
+  </div>
+
+  <details class="nested">
+    <summary>Calculate from can weights instead</summary>
+    <div class="inner">
+      <div class="row">
+        <div class="field">
+          <label>Wt. of wet sample + can</label>
+          <input type="text" inputmode="decimal" id="wetCan">
+          <div class="unit">g</div>
+        </div>
+        <div class="field">
+          <label>Wt. of dry sample + can</label>
+          <input type="text" inputmode="decimal" id="dryCan">
+          <div class="unit">g</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Wt. of can</label>
+          <input type="text" inputmode="decimal" id="canWt">
+          <div class="unit">g</div>
+        </div>
+      </div>
+      <div class="miniresult" id="miniMoist">Moisture content: —</div>
+      <button class="usebtn" id="useMoistBtn">Use this value ↑</button>
+    </div>
+  </details>
+</div>
+
+<div class="card result-card">
+  <h2>Results</h2>
+  <p class="cardnote">In-situ dry density او Degree of compaction، لومړی ټول ارقام ډک کړئ.</p>
+  <div class="result-grid">
+    <div class="result-item">
+      <div class="label">% retained on 19mm</div>
+      <div class="value" id="rPct">—</div>
+    </div>
+    <div class="result-item">
+      <div class="label">Wt. of sand in hole</div>
+      <div class="value" id="rSandHole">—</div>
+    </div>
+    <div class="result-item">
+      <div class="label">Volume of hole</div>
+      <div class="value" id="rVol">—</div>
+    </div>
+    <div class="result-item">
+      <div class="label">Wet density</div>
+      <div class="value" id="rWetD">—</div>
+    </div>
+    <div class="result-item">
+      <div class="label">In-situ dry density</div>
+      <div class="value" id="rDryD">—</div>
+    </div>
+    <div class="result-item">
+      <div class="label">Combined Max. Dry Density</div>
+      <div class="value" id="rCombMdd">—</div>
+    </div>
+  </div>
+  <div class="status neutral" id="rCompact">Degree of compaction: —</div>
+</div>
+
+<button class="reset" id="resetBtn">Clear field data (lab values stay saved)</button>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const labIds = ['wc','gs','mddFine','gc','omc','specReq'];
+  const fieldIds = ['chainage','layer','depth','offset','wetHole','retained','w1','w2','moist'];
+  const canIds = ['wetCan','dryCan','canWt'];
+
+  try{
+    labIds.forEach(id=>{
+      const v = localStorage.getItem('sc2_'+id);
+      if(v!==null) $(id).value = v;
+    });
+    if($('wc').value && $('gs').value) $('labCard').open = false;
+  }catch(e){}
+
+  labIds.forEach(id=>{
+    $(id).addEventListener('input', ()=>{
+      try{ localStorage.setItem('sc2_'+id, $(id).value); }catch(e){}
+      compute();
+    });
+  });
+  fieldIds.forEach(id=> $(id).addEventListener('input', compute));
+  canIds.forEach(id=> $(id).addEventListener('input', computeMini));
+
+  $('resetBtn').addEventListener('click', ()=>{
+    fieldIds.forEach(id=> $(id).value='');
+    canIds.forEach(id=> $(id).value='');
+    compute(); computeMini();
+  });
+
+  $('useMoistBtn').addEventListener('click', ()=>{
+    const m = miniMoistValue();
+    if(m!==null){ $('moist').value = m.toFixed(2); compute(); }
+  });
+
+  function normalizeDigits(str){
+    if(!str) return str;
+    const map = {
+      '٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9',
+      '۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9',
+      '٫':'.'
+    };
+    return str.replace(/[٠-٩۰-۹٫]/g, ch => map[ch] !== undefined ? map[ch] : ch);
+  }
+
+  function num(id){
+    const raw = normalizeDigits(($(id).value||'').trim());
+    if(raw==='') return null;
+    const v = parseFloat(raw);
+    return isNaN(v) ? null : v;
+  }
+
+  function miniMoistValue(){
+    const wetCan = num('wetCan'), dryCan = num('dryCan'), can = num('canWt');
+    if(wetCan===null || dryCan===null || can===null) return null;
+    const dryWt = dryCan - can;
+    const waterWt = wetCan - dryCan;
+    if(dryWt<=0) return null;
+    return (waterWt/dryWt)*100;
+  }
+
+  function computeMini(){
+    const m = miniMoistValue();
+    $('miniMoist').textContent = 'Moisture content: ' + (m===null ? '—' : m.toFixed(2)+'%');
+  }
+
+  function setVal(id, v, unit, dec){
+    const el = $(id);
+    if(v===null || !isFinite(v)){
+      el.innerHTML = '<span class="placeholder-value">—</span>';
+    } else {
+      el.innerHTML = v.toFixed(dec) + ' <small>' + unit + '</small>';
+    }
+  }
+
+  function compute(){
+    const wc = num('wc'), gs = num('gs'), mddFine = num('mddFine'), gc = num('gc');
+    const wetHole = num('wetHole'), retained = num('retained');
+    const w1 = num('w1'), w2 = num('w2');
+    const moist = num('moist');
+    const specReq = num('specReq');
+
+    let pctRet=null, sandInHole=null, vol=null, wetD=null, dryD=null, combMdd=null, degree=null;
+
+    if(wetHole!==null && retained!==null && wetHole>0){
+      pctRet = Math.round((retained/wetHole)*100);
+    }
+    if(w1!==null && w2!==null && wc!==null){
+      sandInHole = (w1 - w2) - wc;
+    }
+    if(sandInHole!==null && gs!==null && gs>0 && sandInHole>0){
+      vol = sandInHole / gs;
+    }
+    if(wetHole!==null && vol!==null && vol>0){
+      wetD = wetHole / vol;
+    }
+    if(wetD!==null && moist!==null){
+      dryD = wetD / (1 + moist/100);
+    }
+    if(pctRet!==null && gc!==null && gc>0 && mddFine!==null && mddFine>0){
+      const pf = 100 - pctRet;
+      const denom = (pctRet/gc) + (pf/mddFine);
+      if(denom>0) combMdd = 100/denom;
+    }
+    if(dryD!==null && combMdd!==null && combMdd>0){
+      degree = (dryD/combMdd)*100;
+    }
+
+    setVal('rPct', pctRet, '%', 0);
+    setVal('rSandHole', sandInHole, 'g', 0);
+    setVal('rVol', vol, 'cc', 0);
+    setVal('rWetD', wetD, 'g/cc', 3);
+    setVal('rDryD', dryD, 'g/cc', 3);
+    setVal('rCombMdd', combMdd, 'g/cc', 3);
+
+    const cEl = $('rCompact');
+    if(degree!==null){
+      cEl.textContent = 'Degree of compaction: ' + degree.toFixed(1) + '%';
+      if(specReq!==null){
+        const pass = degree >= specReq;
+        cEl.textContent += pass ? '  —  Passed' : '  —  Failed';
+        cEl.className = 'status ' + (pass ? 'good':'warn');
+      } else {
+        cEl.className = 'status neutral';
+      }
+    } else {
+      cEl.textContent = 'Degree of compaction: —';
+      cEl.className = 'status neutral';
+    }
+  }
+
+  compute();
+  computeMini();
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('sw.js').catch(function(err){
+      console.log('Service worker registration failed:', err);
+    });
+  });
+}
+</script>
+</body>
+</html>
