@@ -8,9 +8,6 @@
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="theme-color" content="#D98E1F">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&family=Noto+Sans:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#EDEAE2; --bg2:#F6F4EF; --ink:#2B2A26; --ink-soft:#6B6558;
@@ -47,7 +44,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);}
 body{
-  font-family:'Noto Sans Arabic','Noto Sans',system-ui,Tahoma,Arial,sans-serif;
+  font-family:system-ui,-apple-system,'Segoe UI',Tahoma,Arial,sans-serif;
   color:var(--ink);
   font-size:13px;
   line-height:1.35;
@@ -58,7 +55,7 @@ body{
 header{margin-bottom:8px;}
 .eyebrow{color:var(--soil); font-size:11px; font-weight:600; margin:0 0 1px;}
 h1{font-size:16px; font-weight:700; margin:0 0 3px;}
-.sub{color:var(--ink-soft); font-size:10.5px; margin:0; direction:ltr; text-align:right;}
+.sub{color:var(--ink-soft); font-size:10.5px; margin:0; direction:ltr; text-align:left;}
 
 .card{
   background:var(--card);
@@ -70,14 +67,15 @@ h1{font-size:16px; font-weight:700; margin:0 0 3px;}
 .card h2{
   font-size:12.5px; font-weight:700; margin:0 0 2px;
   display:flex; align-items:center; gap:6px;
+  direction:ltr; text-align:left; justify-content:flex-start;
 }
 .card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;}
-.card .cardnote{font-size:10px; color:var(--ink-soft); margin:0 0 5px;}
+.card .cardnote{font-size:8.5px; color:var(--ink-soft); margin:0 0 4px; direction:ltr; text-align:left;}
 
 .row{display:flex; gap:6px; margin-bottom:5px;}
 .field{flex:1; min-width:0;}
 .field.lab{background:var(--lab); border-radius:6px; padding:4px 5px 3px;}
-.field label{display:block; font-size:10px; color:var(--ink-soft); margin-bottom:2px; direction:ltr; text-align:right;}
+.field label{display:block; font-size:10px; color:var(--ink-soft); margin-bottom:2px; direction:ltr; text-align:left;}
 .field.lab label{color:var(--lab-ink);}
 .field input{
   width:100%;
@@ -89,17 +87,19 @@ h1{font-size:16px; font-weight:700; margin:0 0 3px;}
   font-size:13px;
   font-family:inherit;
   direction:ltr;
-  text-align:right;
+  text-align:left;
 }
 .field input:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent);}
-.field .unit{font-size:9px; color:var(--ink-soft); margin-top:1px; direction:ltr; text-align:right;}
+.field .unit{font-size:9px; color:var(--ink-soft); margin-top:1px; direction:ltr; text-align:left;}
 
 details.card{padding:0;}
 details.card summary{
   list-style:none; cursor:pointer;
   padding:8px 10px; font-weight:700; font-size:12.5px;
   display:flex; align-items:center; justify-content:space-between;
+  direction:ltr;
 }
+details.card summary span{text-align:left;}
 details.card summary::-webkit-details-marker{display:none;}
 details.card summary::after{content:'⌄'; color:var(--ink-soft); font-size:18px; transition:transform .15s;}
 details.card[open] summary::after{transform:rotate(180deg);}
@@ -115,8 +115,8 @@ details.nested .inner{padding:0 12px 12px;}
 .result-item{background:rgba(255,255,255,.35); border-radius:6px; padding:5px 7px;}
 :root[data-theme="dark"] .result-item{background:rgba(0,0,0,.18);}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .result-item{background:rgba(0,0,0,.18);}}
-.result-item .label{font-size:9px; opacity:.85; margin-bottom:1px; direction:ltr; text-align:right;}
-.result-item .value{font-size:14px; font-weight:700; direction:ltr; text-align:right;}
+.result-item .label{font-size:9px; opacity:.85; margin-bottom:1px; direction:ltr; text-align:left;}
+.result-item .value{font-size:14px; font-weight:700; direction:ltr; text-align:left;}
 .result-item .value small{font-size:9.5px; font-weight:500;}
 
 .status{margin-top:6px; padding:6px 8px; border-radius:6px; font-size:12px; font-weight:700; text-align:center;}
@@ -125,7 +125,7 @@ details.nested .inner{padding:0 12px 12px;}
 .status.neutral{background:rgba(255,255,255,.35); color:var(--accent-ink);}
 
 .hint{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
-.miniresult{font-size:14px; font-weight:700; margin-top:8px; direction:ltr; text-align:right;}
+.miniresult{font-size:14px; font-weight:700; margin-top:8px; direction:ltr; text-align:left;}
 .usebtn{
   margin-top:8px; padding:9px 14px; border:1px solid var(--accent);
   background:transparent; color:var(--accent-ink); border-radius:7px;
@@ -136,15 +136,125 @@ details.nested .inner{padding:0 12px 12px;}
 .usebtn:active{opacity:.7;}
 
 button.reset{
-  width:100%; margin-top:2px; padding:7px; border:1px solid var(--line);
-  background:var(--bg2); color:var(--ink-soft); border-radius:6px;
-  font-size:11px; font-family:inherit; cursor:pointer;
+  width:100%; margin-top:4px; padding:11px; min-height:38px; border:1px solid var(--line);
+  background:var(--bg2); color:var(--ink-soft); border-radius:7px;
+  font-size:11.5px; font-family:inherit; cursor:pointer;
 }
 button.reset:active{opacity:.7;}
 .placeholder-value{color:var(--ink-soft); opacity:.5;}
+button.pdfbtn{
+  width:100%; margin-top:6px; padding:12px; border:none; min-height:40px;
+  background:var(--accent); color:var(--accent-ink); border-radius:7px;
+  font-size:12.5px; font-weight:700; font-family:inherit; cursor:pointer;
+}
+button.pdfbtn:active{opacity:.8;}
+.history-list{display:flex; flex-direction:column; gap:5px;}
+.history-item{
+  display:flex; align-items:center; justify-content:space-between; gap:6px;
+  border:1px solid var(--line); border-radius:6px; padding:6px 8px;
+  font-size:10.5px; direction:ltr; text-align:left;
+}
+.history-item .hi-info{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.history-item .hi-actions{display:flex; gap:4px; flex:none;}
+.history-item button{
+  border:1px solid var(--line); background:var(--bg2); color:var(--ink);
+  border-radius:5px; padding:6px 9px; min-height:28px; font-size:10px; font-family:inherit; cursor:pointer;
+}
+.history-item button.hi-del{color:var(--warn);}
+
+/* App chrome: header, drawer, views, settings, modal */
+.app-header{
+  display:flex; align-items:center; gap:10px;
+  padding:11px 12px; padding-top:calc(11px + env(safe-area-inset-top, 0px));
+  background:var(--accent); color:var(--accent-ink);
+  position:sticky; top:0; z-index:20;
+  margin:-10px -10px 10px -10px;
+  direction:ltr;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.menu-btn{background:none; border:none; font-size:20px; color:inherit; cursor:pointer; padding:8px 10px; line-height:1; margin:-8px 0 -8px -8px; border-radius:6px;}
+.menu-btn:active{background:rgba(0,0,0,.08);}
+.app-title{font-weight:800; font-size:14.5px;}
+
+.drawer-overlay{position:fixed; inset:0; background:rgba(0,0,0,.42); opacity:0; pointer-events:none; transition:opacity .2s; z-index:40;}
+.drawer-overlay.open{opacity:1; pointer-events:auto;}
+.drawer{
+  position:fixed; top:0; left:0; height:100%; width:78%; max-width:270px;
+  background:var(--card); transform:translateX(-105%); transition:transform .28s cubic-bezier(.22,.9,.3,1);
+  z-index:41; overflow-y:auto; box-shadow:2px 0 18px rgba(0,0,0,.28);
+  direction:ltr; text-align:left;
+}
+.drawer.open{transform:translateX(0);}
+.drawer-head{padding:16px 14px; background:var(--accent); color:var(--accent-ink);}
+.drawer-head .dt{font-weight:800; font-size:15px;}
+.drawer-head .ds{font-size:10.5px; opacity:.85; margin-top:2px;}
+.drawer-item{
+  display:flex; align-items:center; gap:10px; width:100%; text-align:left; direction:ltr;
+  padding:13px 14px; min-height:44px; border:none; background:none; font-size:13px; color:var(--ink);
+  border-bottom:1px solid var(--line); cursor:pointer; font-family:inherit;
+}
+.drawer-item:active{background:var(--bg2);}
+.drawer-item .ic{font-size:15px; flex:none;}
+
+.view{display:none;}
+.view.active{display:block;}
+.view-title{font-size:14.5px; font-weight:800; margin:2px 0 8px; direction:ltr; text-align:left;}
+
+.card select{
+  width:100%; padding:11px 8px; min-height:40px; border:1px solid var(--line); border-radius:7px;
+  background:var(--bg2); color:var(--ink); font-size:13px; direction:ltr; font-family:inherit;
+}
+.navlink-btn{
+  width:100%; text-align:left; direction:ltr; padding:12px 10px; min-height:40px; border:1px solid var(--line);
+  background:var(--bg2); border-radius:7px; font-size:12px; margin-top:7px; cursor:pointer;
+  color:var(--ink); font-family:inherit;
+}
+.navlink-btn:active{opacity:.7;}
+.about-card p, .privacy-card p{font-size:11px; color:var(--ink-soft); direction:ltr; text-align:left; margin:0 0 7px; line-height:1.5;}
+.about-card h3, .privacy-card h3{font-size:12.5px; margin:0 0 3px; direction:ltr; text-align:left;}
+
+.modal-overlay{position:fixed; inset:0; background:rgba(0,0,0,.45); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50;}
+.modal-overlay.open{opacity:1; pointer-events:auto;}
+.modal{
+  position:fixed; left:50%; top:50%; transform:translate(-50%,-50%) scale(.96); opacity:0; pointer-events:none;
+  transition:opacity .2s, transform .2s; z-index:51; background:var(--card); border-radius:10px;
+  width:88%; max-width:400px; max-height:80vh; overflow-y:auto; padding:14px; direction:ltr; text-align:left;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+}
+.modal.open{opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1);}
+.modal h3{font-size:13.5px; margin:0 0 8px;}
+.modal .mrow{display:flex; justify-content:space-between; gap:8px; font-size:11px; padding:4px 0; border-bottom:1px solid var(--line);}
+.modal .mrow .k{color:var(--ink-soft);}
+.modal .mrow .v{font-weight:700;}
+.modal-close{width:100%; margin-top:10px; padding:11px; min-height:38px; border:1px solid var(--line); background:var(--bg2); border-radius:7px; font-size:12px; cursor:pointer; color:var(--ink); font-family:inherit;}
 </style>
 </head>
 <body>
+
+<div class="app-header">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <div class="app-title">Bahir786</div>
+</div>
+
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<nav class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="dt">Bahir786</div>
+    <div class="ds">Field Density Test — Sand Cone</div>
+  </div>
+  <button class="drawer-item" data-view="home"><span class="ic">🏠</span><span data-i18n="nav_home">Home</span></button>
+  <button class="drawer-item" data-view="settings"><span class="ic">🌐</span><span data-i18n="nav_language">Language</span></button>
+  <button class="drawer-item" data-view="settings"><span class="ic">🎨</span><span data-i18n="nav_theme">Theme</span></button>
+  <button class="drawer-item" data-view="history"><span class="ic">📋</span><span data-i18n="nav_history">Test History</span></button>
+  <button class="drawer-item" data-view="settings"><span class="ic">⚙️</span><span data-i18n="nav_settings">Settings</span></button>
+  <button class="drawer-item" data-view="pro"><span class="ic">⭐</span><span data-i18n="nav_pro">Upgrade to Pro</span></button>
+  <button class="drawer-item" data-view="about"><span class="ic">ℹ️</span><span data-i18n="nav_about">About App</span></button>
+  <button class="drawer-item" data-view="privacy"><span class="ic">🔒</span><span data-i18n="nav_privacy">Privacy Policy</span></button>
+  <button class="drawer-item" id="exitBtn"><span class="ic">🚪</span><span data-i18n="nav_exit">Exit</span></button>
+</nav>
+
+<main id="appMain">
+<section id="view-home" class="view active">
 
 <header>
   <p class="eyebrow">ساحوي تجربه · ASTM D1556</p>
@@ -153,42 +263,56 @@ button.reset:active{opacity:.7;}
   <p class="sub" style="margin-top:4px; opacity:.8;">Developed by: Abdul Basir Bahir</p>
 </header>
 
+<div class="card" id="companyCard">
+  <h2><span class="dot"></span>Laboratory / Company</h2>
+  <div class="row">
+    <div class="field">
+      <label>Laboratory name</label>
+      <input type="text" id="labName">
+    </div>
+    <div class="field">
+      <label>Company name</label>
+      <input type="text" id="companyName">
+    </div>
+  </div>
+</div>
+
 <details class="card" id="labCard">
   <summary><span>Laboratory Reference Values</span></summary>
   <div class="inner">
-    <p class="cardnote">دا ارقام یوځل له لابراتوار نه اخلئ، دلته یې وساتئ — بیا بیا یې لیکل نه غواړي.</p>
+    <p class="cardnote">Enter once and use for future tests.</p>
     <div class="row">
       <div class="field lab">
-        <label>Wt. of sand in cone and base plate</label>
+        <label>Weight of Sand in Cone and Base Plate</label>
         <input type="text" inputmode="decimal" id="wc">
         <div class="unit">g</div>
       </div>
       <div class="field lab">
-        <label>Unit wt. of sand</label>
+        <label>Unit Weight of Sand</label>
         <input type="text" inputmode="decimal" id="gs">
         <div class="unit">g/cc</div>
       </div>
     </div>
     <div class="row">
       <div class="field lab">
-        <label>Maximum dry density (pass 19mm)</label>
+        <label>Maximum Dry Density (Pass 19mm)</label>
         <input type="text" inputmode="decimal" id="mddFine">
         <div class="unit">g/cc</div>
       </div>
       <div class="field lab">
-        <label>Specific gravity of coarse agg (ret. 19mm)</label>
+        <label>Specific Gravity of Coarse Aggregate (Retained 19mm)</label>
         <input type="text" inputmode="decimal" id="gc">
         <div class="unit">—</div>
       </div>
     </div>
     <div class="row">
       <div class="field lab">
-        <label>Optimum moisture content</label>
+        <label>Optimum Moisture Content</label>
         <input type="text" inputmode="decimal" id="omc">
         <div class="unit">%</div>
       </div>
       <div class="field">
-        <label>Specification requirement</label>
+        <label>Specification Requirement</label>
         <input type="text" inputmode="decimal" id="specReq" value="98">
         <div class="unit">%</div>
       </div>
@@ -199,11 +323,14 @@ button.reset:active{opacity:.7;}
 <details class="card" id="idCard">
   <summary><span>Test Identification</span></summary>
   <div class="inner">
-    <p class="cardnote">Chainage, depth, layer, offset — write together (e.g. "0+175, 15.5cm, Top, CL")</p>
     <div class="row">
       <div class="field">
-        <label>Test Identification</label>
+        <label>Chainage / Location</label>
         <input type="text" id="testId">
+      </div>
+      <div class="field">
+        <label>Layer / Depth / Offset</label>
+        <input type="text" id="testId2">
       </div>
     </div>
   </div>
@@ -211,26 +338,27 @@ button.reset:active{opacity:.7;}
 
 <div class="card">
   <h2><span class="dot"></span>Field Measurements</h2>
+  <p class="cardnote">No correction? Enter 0.</p>
   <div class="row">
     <div class="field">
-      <label>Wt. of wet sample from hole</label>
+      <label>Weight of Wet Sample from Test Hole</label>
       <input type="text" inputmode="decimal" id="wetHole">
       <div class="unit">g</div>
     </div>
     <div class="field">
-      <label>Wt. retained on 19mm sieve</label>
+      <label>Weight Retained on 19 mm Sieve</label>
       <input type="text" inputmode="decimal" id="retained">
       <div class="unit">g</div>
     </div>
   </div>
   <div class="row">
     <div class="field">
-      <label>Wt. of sand + jar before pouring</label>
+      <label>Weight of Sand + Jar Before Pouring</label>
       <input type="text" inputmode="decimal" id="w1">
       <div class="unit">g</div>
     </div>
     <div class="field">
-      <label>Wt. of sand + jar after pouring</label>
+      <label>Weight of Sand + Jar After Pouring</label>
       <input type="text" inputmode="decimal" id="w2">
       <div class="unit">g</div>
     </div>
@@ -241,7 +369,7 @@ button.reset:active{opacity:.7;}
   <h2><span class="dot"></span>Moisture Content</h2>
   <div class="row">
     <div class="field">
-      <label>Average moisture content</label>
+      <label>Average Moisture Content</label>
       <input type="text" inputmode="decimal" id="moist">
       <div class="unit">%</div>
     </div>
@@ -250,53 +378,150 @@ button.reset:active{opacity:.7;}
 
 <div class="card result-card">
   <h2>Results</h2>
-  <p class="cardnote">In-situ dry density او Degree of compaction، لومړی ټول ارقام ډک کړئ.</p>
+  <p class="cardnote">In-Situ Dry Density and Degree of Compaction — fill in all figures first.</p>
   <div class="result-grid">
     <div class="result-item">
-      <div class="label">% retained on 19mm</div>
+      <div class="label">% Retained on 19 mm Sieve</div>
       <div class="value" id="rPct">—</div>
     </div>
     <div class="result-item">
-      <div class="label">Wt. of sand in hole</div>
+      <div class="label">Weight of Sand in Hole</div>
       <div class="value" id="rSandHole">—</div>
     </div>
     <div class="result-item">
-      <div class="label">Volume of hole</div>
+      <div class="label">Volume of Hole</div>
       <div class="value" id="rVol">—</div>
     </div>
     <div class="result-item">
-      <div class="label">Wet density</div>
+      <div class="label">Wet Density</div>
       <div class="value" id="rWetD">—</div>
     </div>
     <div class="result-item">
-      <div class="label">In-situ dry density</div>
+      <div class="label">In-Situ Dry Density</div>
       <div class="value" id="rDryD">—</div>
     </div>
     <div class="result-item">
-      <div class="label">Combined Max. Dry Density</div>
+      <div class="label">Corrected Maximum Dry Density</div>
       <div class="value" id="rCombMdd">—</div>
     </div>
   </div>
-  <div class="status neutral" id="rCompact">Degree of compaction: —</div>
+  <div class="status neutral" id="rCompact">Degree of Compaction: —</div>
 </div>
 
+<button class="pdfbtn" id="pdfBtn">Save Test as PDF</button>
 <button class="reset" id="resetBtn">Clear field data (lab values stay saved)</button>
 
+<details class="card" id="historyCard">
+  <summary><span>Recent Tests</span></summary>
+  <div class="inner">
+    <div id="historyList" class="history-list"></div>
+    <p class="hint" id="historyEmpty">No saved tests yet.</p>
+  </div>
+</details>
+
+</section>
+
+<section id="view-history" class="view">
+  <h2 class="view-title">Test History</h2>
+  <div id="historyListFull" class="history-list"></div>
+  <p class="hint" id="historyEmptyFull">No saved tests yet.</p>
+</section>
+
+<section id="view-settings" class="view">
+  <h2 class="view-title">Settings</h2>
+
+  <div class="card">
+    <h2><span class="dot"></span><span data-i18n="settings_language">Language</span></h2>
+    <select id="langSelect">
+      <option value="en">English</option>
+      <option value="ps">پښتو</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span><span data-i18n="settings_theme">Theme</span></h2>
+    <select id="themeSelect">
+      <option value="system" data-i18n="theme_system">System Default</option>
+      <option value="light" data-i18n="theme_light">Light</option>
+      <option value="dark" data-i18n="theme_dark">Dark</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span><span data-i18n="settings_history">Test History</span></h2>
+    <button class="navlink-btn" data-view="history" data-i18n="settings_open_history">Open Test History →</button>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span><span data-i18n="settings_storage">Data Storage</span></h2>
+    <p class="cardnote" data-i18n="settings_storage_note">All data is stored only on this device.</p>
+    <button class="reset" id="clearAllBtn" data-i18n="settings_clear">Clear Saved Data</button>
+  </div>
+
+  <div class="card">
+    <button class="navlink-btn" data-view="about" data-i18n="settings_about">About App →</button>
+    <button class="navlink-btn" data-view="privacy" data-i18n="settings_privacy">Privacy Policy →</button>
+  </div>
+</section>
+
+<section id="view-about" class="view">
+  <h2 class="view-title" data-i18n="about_title">About App</h2>
+  <div class="card about-card">
+    <h3>Bahir786</h3>
+    <p data-i18n="about_line1">Field Density Test — Sand Cone Method (ASTM D1556)</p>
+    <h3 data-i18n="about_dev_label">Developed by</h3>
+    <p>Abdul Basir Bahir</p>
+    <h3 data-i18n="about_desc_label">Description</h3>
+    <p data-i18n="about_desc">A professional field calculator for construction materials laboratories. It performs ASTM D1556 sand cone density calculations, keeps a history of completed tests on this device, and generates printable PDF reports for each test.</p>
+  </div>
+</section>
+
+<section id="view-privacy" class="view">
+  <h2 class="view-title" data-i18n="privacy_title">Privacy Policy</h2>
+  <div class="card privacy-card">
+    <h3 data-i18n="privacy_h1">Local Data Only</h3>
+    <p data-i18n="privacy_p1">This application stores all test data, laboratory settings, and history only on your own device, using your browser's local storage. Nothing is uploaded or sent to any server.</p>
+    <h3 data-i18n="privacy_h2">What is Stored</h3>
+    <p data-i18n="privacy_p2">Laboratory reference values, company and laboratory names, test measurements, calculated results, and your saved test history.</p>
+    <h3 data-i18n="privacy_h3">Clearing Data</h3>
+    <p data-i18n="privacy_p3">You can erase all saved data at any time from Settings → Clear Saved Data. This cannot be undone.</p>
+  </div>
+</section>
+
+<section id="view-pro" class="view">
+  <h2 class="view-title" data-i18n="pro_title">Upgrade to Pro</h2>
+  <div class="card">
+    <p class="cardnote" data-i18n="pro_note">Pro features are coming soon.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="modal-overlay" id="historyModalOverlay"></div>
+<div class="modal" id="historyModal">
+  <h3 data-i18n="modal_title">Test Details</h3>
+  <div id="historyModalBody"></div>
+  <button class="modal-close" id="historyModalClose" data-i18n="modal_close">Close</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 (function(){
   const $ = id => document.getElementById(id);
+  let lastResults = {};
   const labIds = ['wc','gs','mddFine','gc','omc','specReq'];
-  const fieldIds = ['testId','wetHole','retained','w1','w2','moist'];
+  const companyIds = ['labName','companyName'];
+  const fieldIds = ['testId','testId2','wetHole','retained','w1','w2','moist'];
 
   try{
-    labIds.forEach(id=>{
+    labIds.concat(companyIds).forEach(id=>{
       const v = localStorage.getItem('sc2_'+id);
       if(v!==null) $(id).value = v;
     });
     if($('wc').value && $('gs').value) $('labCard').open = false;
   }catch(e){}
 
-  labIds.forEach(id=>{
+  labIds.concat(companyIds).forEach(id=>{
     $(id).addEventListener('input', ()=>{
       try{ localStorage.setItem('sc2_'+id, $(id).value); }catch(e){}
       compute();
@@ -377,7 +602,7 @@ button.reset:active{opacity:.7;}
 
     const cEl = $('rCompact');
     if(degree!==null){
-      cEl.textContent = 'Degree of compaction: ' + degree.toFixed(1) + '%';
+      cEl.textContent = 'Degree of Compaction: ' + degree.toFixed(1) + '%';
       if(specReq!==null){
         const pass = degree >= specReq;
         cEl.textContent += pass ? '  —  Passed' : '  —  Failed';
@@ -386,11 +611,375 @@ button.reset:active{opacity:.7;}
         cEl.className = 'status neutral';
       }
     } else {
-      cEl.textContent = 'Degree of compaction: —';
+      cEl.textContent = 'Degree of Compaction: —';
       cEl.className = 'status neutral';
     }
+
+    lastResults = {
+      testId: $('testId').value || '',
+      testId2: $('testId2').value || '',
+      labName: $('labName').value || '',
+      companyName: $('companyName').value || '',
+      wc, gs, mddFine, gc, omc: num('omc'), specReq,
+      wetHole, retained, w1, w2, moist,
+      pctRet, sandInHole, vol, wetD, dryD, combMdd, degree
+    };
   }
 
+  function fmt(v, dec, unit){
+    if(v===null || v===undefined || !isFinite(v)) return '—';
+    return v.toFixed(dec) + (unit ? (' ' + unit) : '');
+  }
+
+  function loadHistory(){
+    try{
+      return JSON.parse(localStorage.getItem('sc2_history') || '[]');
+    }catch(e){ return []; }
+  }
+
+  function saveHistory(list){
+    try{ localStorage.setItem('sc2_history', JSON.stringify(list)); }catch(e){}
+  }
+
+  function renderOneHistoryList(boxId, emptyId, withView){
+    const list = loadHistory();
+    const box = $(boxId);
+    const empty = $(emptyId);
+    if(!box) return;
+    box.innerHTML = '';
+    if(list.length === 0){ if(empty) empty.style.display = 'block'; return; }
+    if(empty) empty.style.display = 'none';
+    list.slice().reverse().forEach(function(entry, revIdx){
+      const idx = list.length - 1 - revIdx;
+      const row = document.createElement('div');
+      row.className = 'history-item';
+      const passTxt = entry.degree!==null && entry.degree!==undefined
+        ? entry.degree.toFixed(1) + '%' + (entry.specReq!==null && entry.specReq!==undefined ? (entry.degree >= entry.specReq ? ' \u2713' : ' \u2717') : '')
+        : '\u2014';
+      const idLabel = [entry.testId, entry.testId2].filter(Boolean).join(' / ') || 'Test';
+      row.innerHTML = '<div class="hi-info">' + idLabel + ' \u2014 ' + entry.dateStr + ' \u2014 ' + passTxt + '</div>' +
+        '<div class="hi-actions">' + (withView ? '<button class="hi-view">View</button>' : '') + '<button class="hi-pdf">PDF</button><button class="hi-del">\u2715</button></div>';
+      if(withView){
+        row.querySelector('.hi-view').addEventListener('click', function(){ openHistoryDetail(entry); });
+      }
+      row.querySelector('.hi-pdf').addEventListener('click', function(){ generatePDF(entry); });
+      row.querySelector('.hi-del').addEventListener('click', function(){
+        const l = loadHistory();
+        l.splice(idx, 1);
+        saveHistory(l);
+        renderHistory();
+      });
+      box.appendChild(row);
+    });
+  }
+
+  function renderHistory(){
+    renderOneHistoryList('historyList', 'historyEmpty', false);
+    renderOneHistoryList('historyListFull', 'historyEmptyFull', true);
+  }
+
+  function openHistoryDetail(entry){
+    const idLabel = [entry.testId, entry.testId2].filter(Boolean).join(' / ') || '\u2014';
+    const rows = [
+      ['Test ID', idLabel],
+      ['Date', entry.dateStr || '\u2014'],
+      ['Laboratory', entry.labName || '\u2014'],
+      ['Company', entry.companyName || '\u2014'],
+      ['Weight of Sand in Cone and Base Plate', fmt(entry.wc, 0, 'g')],
+      ['Unit Weight of Sand', fmt(entry.gs, 3, 'g/cc')],
+      ['Maximum Dry Density (Pass 19mm)', fmt(entry.mddFine, 3, 'g/cc')],
+      ['Specific Gravity of Coarse Aggregate', fmt(entry.gc, 3, '')],
+      ['Specification Requirement', fmt(entry.specReq, 1, '%')],
+      ['Weight of Wet Sample from Test Hole', fmt(entry.wetHole, 0, 'g')],
+      ['Weight Retained on 19 mm Sieve', fmt(entry.retained, 0, 'g')],
+      ['Weight of Sand + Jar Before Pouring', fmt(entry.w1, 0, 'g')],
+      ['Weight of Sand + Jar After Pouring', fmt(entry.w2, 0, 'g')],
+      ['Average Moisture Content', fmt(entry.moist, 2, '%')],
+      ['Weight of Sand in Hole', fmt(entry.sandInHole, 0, 'g')],
+      ['Volume of Hole', fmt(entry.vol, 0, 'cc')],
+      ['Wet Density', fmt(entry.wetD, 3, 'g/cc')],
+      ['In-Situ Dry Density', fmt(entry.dryD, 3, 'g/cc')],
+      ['Corrected Maximum Dry Density', fmt(entry.combMdd, 3, 'g/cc')],
+      ['Degree of Compaction', entry.degree!==null && entry.degree!==undefined ? entry.degree.toFixed(1)+'%' : '\u2014']
+    ];
+    const body = $('historyModalBody');
+    body.innerHTML = rows.map(function(r){
+      return '<div class="mrow"><span class="k">'+r[0]+'</span><span class="v">'+r[1]+'</span></div>';
+    }).join('');
+    $('historyModalOverlay').classList.add('open');
+    $('historyModal').classList.add('open');
+  }
+
+  function closeHistoryDetail(){
+    $('historyModalOverlay').classList.remove('open');
+    $('historyModal').classList.remove('open');
+  }
+  $('historyModalOverlay').addEventListener('click', closeHistoryDetail);
+  $('historyModalClose').addEventListener('click', closeHistoryDetail);
+
+  function generatePDF(snapshot){
+    if(!window.jspdf){ alert('PDF library did not load — check your internet connection and try again.'); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    const pageW = 210, pageH = 297;
+    const marginX = 16;
+    const contentW = pageW - marginX*2;
+    const accent = [217,142,31];
+    const inkDark = [43,42,38];
+    const inkSoft = [110,104,92];
+    const lineGray = [216,210,196];
+    let y = 0;
+
+    doc.setFillColor(accent[0],accent[1],accent[2]);
+    doc.rect(0, 0, pageW, 26, 'F');
+    doc.setTextColor(90,60,10);
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(15);
+    doc.text('Field Density Test \u2014 Sand Cone Method', marginX, 12);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(9.5);
+    doc.text('ASTM D1556', marginX, 19);
+    doc.setFontSize(8.5);
+    doc.text('Developed by: Abdul Basir Bahir', pageW - marginX, 19, { align: 'right' });
+    doc.setTextColor(0,0,0);
+    y = 34;
+
+    doc.setDrawColor(lineGray[0],lineGray[1],lineGray[2]);
+    doc.setFillColor(250,248,243);
+    doc.roundedRect(marginX, y, contentW, 18, 2, 2, 'FD');
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(9);
+    doc.setTextColor(inkSoft[0],inkSoft[1],inkSoft[2]);
+    doc.text('LABORATORY', marginX + 4, y + 6);
+    doc.text('COMPANY', marginX + 4, y + 14);
+    doc.text('DATE', pageW - marginX - 4, y + 6, { align: 'right' });
+    doc.text('TEST ID', pageW - marginX - 4, y + 14, { align: 'right' });
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(inkDark[0],inkDark[1],inkDark[2]);
+    doc.text(snapshot.labName || '\u2014', marginX + 30, y + 6);
+    doc.text(snapshot.companyName || '\u2014', marginX + 30, y + 14);
+    doc.text(snapshot.dateStr || new Date().toLocaleString(), pageW - marginX - 28, y + 6, { align: 'right' });
+    const testIdCombined = [snapshot.testId, snapshot.testId2].filter(Boolean).join('  \u2014  ') || '\u2014';
+    doc.text(testIdCombined, pageW - marginX - 28, y + 14, { align: 'right' });
+    y += 26;
+
+    function sectionTitle(title){
+      doc.setFillColor(accent[0],accent[1],accent[2]);
+      doc.rect(marginX, y, 3, 5.5, 'F');
+      doc.setFont('helvetica','bold');
+      doc.setFontSize(11);
+      doc.setTextColor(inkDark[0],inkDark[1],inkDark[2]);
+      doc.text(title, marginX + 6, y + 4.5);
+      y += 10;
+    }
+
+    function twoColRows(pairs){
+      const colW = contentW / 2;
+      pairs.forEach(function(pair, i){
+        const col = i % 2;
+        const rowY = y + Math.floor(i/2) * 7;
+        const x = marginX + col * colW;
+        doc.setFont('helvetica','normal');
+        doc.setFontSize(9.3);
+        doc.setTextColor(inkSoft[0],inkSoft[1],inkSoft[2]);
+        doc.text(pair[0], x, rowY);
+        doc.setFont('helvetica','bold');
+        doc.setTextColor(inkDark[0],inkDark[1],inkDark[2]);
+        doc.text(String(pair[1]), x + colW - 4, rowY, { align: 'right' });
+      });
+      y += Math.ceil(pairs.length/2) * 7 + 5;
+    }
+
+    sectionTitle('Laboratory Reference Values');
+    twoColRows([
+      ['Weight of Sand in Cone and Base Plate', fmt(snapshot.wc, 0, 'g')],
+      ['Unit Weight of Sand', fmt(snapshot.gs, 3, 'g/cc')],
+      ['Maximum Dry Density (Pass 19mm)', fmt(snapshot.mddFine, 3, 'g/cc')],
+      ['Specific Gravity of Coarse Aggregate', fmt(snapshot.gc, 3, '')],
+      ['Optimum Moisture Content', fmt(snapshot.omc, 2, '%')],
+      ['Specification Requirement', fmt(snapshot.specReq, 1, '%')]
+    ]);
+
+    sectionTitle('Field Measurements');
+    twoColRows([
+      ['Weight of Wet Sample from Test Hole', fmt(snapshot.wetHole, 0, 'g')],
+      ['Weight Retained on 19 mm Sieve', fmt(snapshot.retained, 0, 'g')],
+      ['Weight of Sand + Jar Before Pouring', fmt(snapshot.w1, 0, 'g')],
+      ['Weight of Sand + Jar After Pouring', fmt(snapshot.w2, 0, 'g')],
+      ['Average Moisture Content', fmt(snapshot.moist, 2, '%')]
+    ]);
+
+    sectionTitle('Results');
+    twoColRows([
+      ['% Retained on 19 mm Sieve', fmt(snapshot.pctRet, 0, '%')],
+      ['Weight of Sand in Hole', fmt(snapshot.sandInHole, 0, 'g')],
+      ['Volume of Hole', fmt(snapshot.vol, 0, 'cc')],
+      ['Wet Density', fmt(snapshot.wetD, 3, 'g/cc')],
+      ['In-Situ Dry Density', fmt(snapshot.dryD, 3, 'g/cc')],
+      ['Corrected Maximum Dry Density', fmt(snapshot.combMdd, 3, 'g/cc')]
+    ]);
+
+    const degreeTxt = snapshot.degree!==null && snapshot.degree!==undefined ? snapshot.degree.toFixed(1) + '%' : '\u2014';
+    const hasPass = snapshot.degree!==null && snapshot.degree!==undefined && snapshot.specReq!==null && snapshot.specReq!==undefined;
+    const pass = hasPass ? snapshot.degree >= snapshot.specReq : null;
+    if(pass === true) doc.setFillColor(231,241,230);
+    else if(pass === false) doc.setFillColor(247,231,225);
+    else doc.setFillColor(250,248,243);
+    doc.setDrawColor(lineGray[0],lineGray[1],lineGray[2]);
+    doc.roundedRect(marginX, y, contentW, 14, 2, 2, 'FD');
+    doc.setFont('helvetica','bold');
+    doc.setFontSize(12.5);
+    if(pass === true) doc.setTextColor(63,122,80);
+    else if(pass === false) doc.setTextColor(180,71,43);
+    else doc.setTextColor(inkDark[0],inkDark[1],inkDark[2]);
+    doc.text('Degree of Compaction: ' + degreeTxt, marginX + 5, y + 9);
+    if(hasPass){
+      doc.text(pass ? 'PASSED' : 'FAILED', pageW - marginX - 5, y + 9, { align: 'right' });
+    }
+    doc.setTextColor(0,0,0);
+    y += 22;
+
+    doc.setDrawColor(lineGray[0],lineGray[1],lineGray[2]);
+    doc.line(marginX, pageH - 16, pageW - marginX, pageH - 16);
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(inkSoft[0],inkSoft[1],inkSoft[2]);
+    doc.text('Generated by Sand Cone FDT Calculator \u2014 ASTM D1556', marginX, pageH - 10);
+    doc.text('Developed by: Abdul Basir Bahir', pageW - marginX, pageH - 10, { align: 'right' });
+
+    const safeId = (snapshot.testId || 'test').replace(/[^a-zA-Z0-9]+/g, '_').slice(0, 40);
+    const fileDate = (snapshot.dateStr || new Date().toLocaleString()).replace(/[^a-zA-Z0-9]+/g, '_');
+    doc.save('FDT_' + safeId + '_' + fileDate + '.pdf');
+  }
+
+  $('pdfBtn').addEventListener('click', function(){
+    compute();
+    const snapshot = Object.assign({}, lastResults, { dateStr: new Date().toLocaleString() });
+    generatePDF(snapshot);
+    const list = loadHistory();
+    list.push(snapshot);
+    if(list.length > 50) list.shift();
+    saveHistory(list);
+    renderHistory();
+  });
+
+  // ----- i18n -----
+  const I18N = {
+    en: {
+      nav_home:'Home', nav_language:'Language', nav_theme:'Theme', nav_history:'Test History',
+      nav_settings:'Settings', nav_pro:'Upgrade to Pro', nav_about:'About App', nav_privacy:'Privacy Policy', nav_exit:'Exit',
+      settings_language:'Language', settings_theme:'Theme',
+      theme_system:'System Default', theme_light:'Light', theme_dark:'Dark',
+      settings_history:'Test History', settings_open_history:'Open Test History \u2192',
+      settings_storage:'Data Storage', settings_storage_note:'All data is stored only on this device.',
+      settings_clear:'Clear Saved Data',
+      settings_about:'About App \u2192', settings_privacy:'Privacy Policy \u2192',
+      about_title:'About App', about_line1:'Field Density Test \u2014 Sand Cone Method (ASTM D1556)',
+      about_dev_label:'Developed by', about_desc_label:'Description',
+      about_desc:'A professional field calculator for construction materials laboratories. It performs ASTM D1556 sand cone density calculations, keeps a history of completed tests on this device, and generates printable PDF reports for each test.',
+      privacy_title:'Privacy Policy', privacy_h1:'Local Data Only',
+      privacy_p1:"This application stores all test data, laboratory settings, and history only on your own device, using your browser's local storage. Nothing is uploaded or sent to any server.",
+      privacy_h2:'What is Stored', privacy_p2:'Laboratory reference values, company and laboratory names, test measurements, calculated results, and your saved test history.',
+      privacy_h3:'Clearing Data', privacy_p3:'You can erase all saved data at any time from Settings \u2192 Clear Saved Data. This cannot be undone.',
+      pro_title:'Upgrade to Pro', pro_note:'Pro features are coming soon.',
+      modal_title:'Test Details', modal_close:'Close'
+    },
+    ps: {
+      nav_home:'\u06A9\u0648\u0631', nav_language:'\u0698\u0628\u0647', nav_theme:'\u0628\u0693\u0647', nav_history:'\u062F \u0627\u0632\u0645\u0648\u064A\u0646\u0648 \u062A\u0627\u0631\u064A\u062E\u0686\u0647',
+      nav_settings:'\u062A\u0646\u0638\u064A\u0645\u0627\u062A', nav_pro:'\u067E\u0631\u0648 \u062A\u0647 \u0644\u0648\u0693\u0644', nav_about:'\u062F \u0627\u067E \u067E\u0647 \u0627\u0693\u0647', nav_privacy:'\u0645\u062D\u0631\u0645\u064A\u062A \u067E\u0627\u0644\u064A\u0633\u064A', nav_exit:'\u0648\u062A\u0644',
+      settings_language:'\u0698\u0628\u0647', settings_theme:'\u0628\u0693\u0647',
+      theme_system:'\u062F \u0633\u064A\u0633\u0679\u0645 \u0688\u064A\u0641\u0627\u0644\u067C', theme_light:'\u0631\u0648\u069A\u0627\u0646\u0647', theme_dark:'\u062A\u064A\u0627\u0631\u0647',
+      settings_history:'\u062F \u0627\u0632\u0645\u0648\u064A\u0646\u0648 \u062A\u0627\u0631\u064A\u062E\u0686\u0647', settings_open_history:'\u062A\u0627\u0631\u064A\u062E\u0686\u0647 \u062E\u0644\u0627\u0635\u0647 \u06A9\u0693\u0626 \u2192',
+      settings_storage:'\u062F \u0645\u0639\u0644\u0648\u0645\u0627\u062A\u0648 \u0630\u062E\u064A\u0631\u0647', settings_storage_note:'\u0679\u0648\u0644 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u064A\u0648\u0627\u0632\u064A \u067E\u062F\u06D0 \u0648\u0633\u064A\u0644\u0647 \u06A9\u06D0 \u062E\u0648\u0646\u062F\u064A \u062F\u064A.',
+      settings_clear:'\u0679\u0648\u0644 \u062E\u0648\u0646\u062F\u064A \u0634\u0648\u06D0 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u067E\u0627\u06A9 \u06A9\u0693\u0626',
+      settings_about:'\u062F \u0627\u067E \u067E\u0647 \u0627\u0693\u0647 \u2192', settings_privacy:'\u0645\u062D\u0631\u0645\u064A\u062A \u067E\u0627\u0644\u064A\u0633\u064A \u2192',
+      about_title:'\u062F \u0627\u067E \u067E\u0647 \u0627\u0693\u0647', about_line1:'\u062F \u0633\u0627\u062D\u0648\u064A \u06A9\u062B\u0627\u0641\u062A \u0627\u0632\u0645\u0648\u064A\u0646\u0647 \u2014 \u062F \u0634\u06AB\u0648 \u06A9\u0648\u0646\u062C \u0645\u064A\u062A\u0648\u062F (ASTM D1556)',
+      about_dev_label:'\u062C\u0648\u0691\u0648\u0646\u06A9\u064A', about_desc_label:'\u062A\u0634\u0631\u064A\u062D',
+      about_desc:'\u062F\u0627 \u064A\u0648\u0647 \u0645\u0633\u0644\u06A9\u064A \u0648\u0633\u064A\u0644\u0647 \u062F\u0647 \u0633\u0627\u062E\u062A\u0645\u0627\u0646\u064A \u0645\u0648\u0627\u062F\u0648 \u0644\u0627\u0628\u0631\u0627\u062A\u0648\u0627\u0631\u0648\u0646\u0648 \u0644\u067E\u0627\u0631\u0647. \u062F\u0627 \u062F ASTM D1556 \u062F \u0634\u06AB\u0648 \u06A9\u0648\u0646\u062C \u0645\u062D\u0627\u0633\u0628\u06D0 \u062A\u0631\u0633\u0631\u0647 \u06A9\u0648\u064A، \u062F \u0628\u0634\u067E\u0695\u0648 \u0627\u0632\u0645\u0648\u064A\u0646\u0648 \u062A\u0627\u0631\u064A\u062E\u0686\u0647 \u067E\u062F\u06D0 \u0648\u0633\u064A\u0644\u0647 \u06A9\u06D0 \u0633\u0627\u062A\u064A، \u0627\u0648 \u062F \u0647\u0631\u06D0 \u0627\u0632\u0645\u0648\u064A\u0646\u06D0 \u0644\u067E\u0627\u0631\u0647 \u0686\u0627\u067E \u06A9\u064A\u062F\u0648\u0646\u06A9\u064A PDF \u0631\u0627\u067E\u0648\u0631 \u062C\u0648\u0691\u0648\u064A.',
+      privacy_title:'\u0645\u062D\u0631\u0645\u064A\u062A \u067E\u0627\u0644\u064A\u0633\u064A', privacy_h1:'\u064A\u0648\u0627\u0632\u064A \u0645\u062D\u0644\u064A \u0645\u0639\u0644\u0648\u0645\u0627\u062A',
+      privacy_p1:'\u062F\u0627 \u0627\u067E\u0644\u064A\u06A9\u064A\u0634\u0646 \u0633\u062A\u0627\u0633\u0648 \u0679\u0648\u0644 \u062F \u0627\u0632\u0645\u0648\u064A\u0646\u06D0 \u0645\u0639\u0644\u0648\u0645\u0627\u062A، \u062F \u0644\u0627\u0628\u0631\u0627\u062A\u0648\u0627\u0631 \u062A\u0646\u0638\u064A\u0645\u0627\u062A، \u0627\u0648 \u062A\u0627\u0631\u064A\u062E\u0686\u0647 \u064A\u0648\u0627\u0632\u064A \u0633\u062A\u0627\u0633\u0648 \u067E\u0647 \u062E\u067E\u0644\u0647 \u0648\u0633\u064A\u0644\u0647 \u06A9\u06D0 \u062E\u0648\u0646\u062F\u064A \u06A9\u0648\u064A. \u0647\u064A\u0691 \u0634\u064A \u0633\u0631\u0648\u0631 \u062A\u0647 \u0646\u0647 \u0644\u064A\u06AF\u0644 \u06A9\u064A\u063A\u064A.',
+      privacy_h2:'\u06A9\u0648\u0645 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u062E\u0648\u0646\u062F\u064A \u06A9\u064A\u063A\u064A', privacy_p2:'\u062F \u0644\u0627\u0628\u0631\u0627\u062A\u0648\u0627\u0631 \u0645\u0639\u064A\u0627\u0631\u064A \u0627\u0631\u0632\u069A\u062A\u0648\u0646\u0647، \u062F \u06A9\u0645\u067E\u0646\u064A/\u0644\u0627\u0628\u0631\u0627\u062A\u0648\u0627\u0631 \u0646\u0648\u0645\u0648\u0646\u0647، \u062F \u0627\u0632\u0645\u0648\u064A\u0646\u06D0 \u0627\u0646\u062F\u0627\u0632\u0647\u200C\u06AF\u064A\u0631\u06D0، \u0645\u062D\u0627\u0633\u0628\u0647 \u0634\u0648\u06D0 \u067E\u0627\u064A\u0644\u06D0، \u0627\u0648 \u0633\u062A\u0627\u0633\u0648 \u062E\u0648\u0646\u062F\u064A \u0634\u0648\u06D0 \u062A\u0627\u0631\u064A\u062E\u0686\u0647.',
+      privacy_h3:'\u062F \u0645\u0639\u0644\u0648\u0645\u0627\u062A\u0648 \u067E\u0627\u06A9\u0648\u0644', privacy_p3:'\u062A\u0627\u0633\u0648 \u06A9\u0648\u0644\u064A \u0634\u0626 \u0647\u0631 \u0648\u062E\u062A \u0679\u0648\u0644 \u062E\u0648\u0646\u062F\u064A \u0634\u0648\u06D0 \u0645\u0639\u0644\u0648\u0645\u0627\u062A \u067E\u0627\u06A9 \u06A9\u0693\u0626: Settings \u2192 Clear Saved Data. \u062F\u0627 \u06A9\u0627\u0631 \u0628\u064A\u0631\u062A\u0647 \u0646\u0634\u064A \u06A9\u064A\u062F\u0649.',
+      pro_title:'\u067E\u0631\u0648 \u062A\u0647 \u0644\u0648\u0693\u0644', pro_note:'\u062F \u067E\u0631\u0648 \u0685\u0627\u0646\u06AF\u0693\u062A\u064A\u0627\u0648\u06D0 \u0688\u064A\u0631 \u0698\u0631 \u0631\u0627\u0632\u064A.',
+      modal_title:'\u062F \u0627\u0632\u0645\u0648\u064A\u0646\u06D0 \u062A\u0641\u0635\u064A\u0644\u0627\u062A', modal_close:'\u0628\u0646\u062F\u0648\u0644'
+    }
+  };
+
+  function applyLang(lang){
+    const dict = I18N[lang] || I18N.en;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      const key = el.getAttribute('data-i18n');
+      if(dict[key]) el.textContent = dict[key];
+    });
+    try{ localStorage.setItem('sc2_lang', lang); }catch(e){}
+    if($('langSelect')) $('langSelect').value = lang;
+  }
+
+  // ----- Theme -----
+  function applyTheme(choice){
+    const root = document.documentElement;
+    if(choice === 'light'){ root.setAttribute('data-theme','light'); }
+    else if(choice === 'dark'){ root.setAttribute('data-theme','dark'); }
+    else { root.removeAttribute('data-theme'); }
+    try{ localStorage.setItem('sc2_theme', choice); }catch(e){}
+    if($('themeSelect')) $('themeSelect').value = choice;
+  }
+
+  // ----- Drawer -----
+  function openDrawer(){ $('drawer').classList.add('open'); $('drawerOverlay').classList.add('open'); }
+  function closeDrawer(){ $('drawer').classList.remove('open'); $('drawerOverlay').classList.remove('open'); }
+  $('menuBtn').addEventListener('click', openDrawer);
+  $('drawerOverlay').addEventListener('click', closeDrawer);
+
+  // ----- View switching -----
+  function showView(name){
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+    const el = $('view-' + name);
+    if(el) el.classList.add('active');
+    window.scrollTo(0,0);
+  }
+  document.querySelectorAll('.drawer-item[data-view], .navlink-btn[data-view]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      showView(btn.getAttribute('data-view'));
+      closeDrawer();
+    });
+  });
+
+  // ----- Settings wiring -----
+  if($('langSelect')) $('langSelect').addEventListener('change', function(){ applyLang(this.value); });
+  if($('themeSelect')) $('themeSelect').addEventListener('change', function(){ applyTheme(this.value); });
+
+  if($('clearAllBtn')) $('clearAllBtn').addEventListener('click', function(){
+    if(!confirm('This will permanently delete all saved laboratory values, company info, and test history from this device. Continue?')) return;
+    try{
+      const keys = [];
+      for(let i=0;i<localStorage.length;i++){ const k = localStorage.key(i); if(k && k.indexOf('sc2_')===0) keys.push(k); }
+      keys.forEach(function(k){ if(k!=='sc2_lang' && k!=='sc2_theme') localStorage.removeItem(k); });
+    }catch(e){}
+    labIds.concat(companyIds).forEach(id=>{ $(id).value=''; });
+    fieldIds.forEach(id=> $(id).value='');
+    compute();
+    renderHistory();
+    alert('All saved data cleared.');
+  });
+
+  // ----- Exit -----
+  if($('exitBtn')) $('exitBtn').addEventListener('click', function(){
+    closeDrawer();
+    try{ window.close(); }catch(e){}
+    setTimeout(function(){
+      alert('You can close this app from your phone’s recent apps screen.');
+    }, 300);
+  });
+
+  // ----- Init language & theme from storage -----
+  try{
+    applyLang(localStorage.getItem('sc2_lang') || 'en');
+    applyTheme(localStorage.getItem('sc2_theme') || 'system');
+  }catch(e){ applyLang('en'); applyTheme('system'); }
+
+  renderHistory();
   compute();
 })();
 </script>
