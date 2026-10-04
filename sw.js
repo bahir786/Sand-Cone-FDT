@@ -1,16 +1,30 @@
-const CACHE_NAME = 'sand-cone-fdt-v1';
+const CACHE_NAME = 'sand-cone-fdt-v2';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './icons/icon-192.png',
-  './icons/icon-512.png'
+  './icons/icon-512.png',
+  'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
 ];
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll(ASSETS_TO_CACHE);
+      // Cache each file independently: one failed fetch (e.g. a flaky
+      // connection) should never block the rest of the app from being
+      // precached for offline use.
+      return Promise.allSettled(
+        ASSETS_TO_CACHE.map(function(url) {
+          return fetch(url, { mode: url.indexOf('http') === 0 ? 'cors' : 'same-origin' })
+            .then(function(response) {
+              if (response && (response.ok || response.type === 'opaque')) {
+                return cache.put(url, response);
+              }
+            })
+            .catch(function() { /* skip this one, keep going */ });
+        })
+      );
     })
   );
   self.skipWaiting();
